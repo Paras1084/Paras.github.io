@@ -3,33 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paras Shelar | Electronics & Hardware Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Paras Shelar | Full-Stack IoT Builder</title>
+    <!-- Fonts: Poppins for clean body text, Share Tech Mono for the hardware/silkscreen aesthetic -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+    <!-- THE DYNAMIC POWER TRACE (GLOWS & FLOWS ON SCROLL) -->
+    <!-- THE DYNAMIC PCB SCROLL TRACE -->
+    <!-- preserveAspectRatio="none" allows it to stretch down the page, while non-scaling-stroke keeps the line thickness perfect -->
+    <svg id="scroll-pcb-trace" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <!-- The dim, unpowered copper track -->
+        <path class="dim-trace" d="M 8 0 V 15 L 18 25 V 45 L 6 57 V 75 L 15 84 V 100" vector-effect="non-scaling-stroke" />
+        
+        <!-- The glowing powered track (controlled by JS) -->
+        <path id="glow-trace" pathLength="100" d="M 8 0 V 15 L 18 25 V 45 L 6 57 V 75 L 15 84 V 100" vector-effect="non-scaling-stroke" />
+    </svg>
+
+    <!-- BLACKOUT OVERLAY FOR OVERDRIVE BOOT SEQUENCE -->
+
+    <!-- BLACKOUT OVERLAY FOR OVERDRIVE BOOT SEQUENCE -->
+    <div id="blackout-screen"></div>
+
+    <!-- NAVBAR -->
     <nav class="navbar">
         <ul class="nav">
-            <li><a href="#home"><i class="fas fa-home"></i> <span>Home</span></a></li>
-            <li><a href="#about"><i class="fas fa-user"></i> <span>About</span></a></li>
+            <li><a href="#home"><i class="fas fa-microchip"></i> <span>Home</span></a></li>
+            <li><a href="#experience"><i class="fas fa-industry"></i> <span>Experience</span></a></li>
             <li><a href="#projects"><i class="fas fa-project-diagram"></i> <span>Projects</span></a></li>
+            <li><a href="#thoughts"><i class="fas fa-lightbulb"></i> <span>Thoughts</span></a></li>
             <li><a href="#contact"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
         </ul>
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="projectSearch" placeholder="Search builds...">
+        </div>
     </nav>
 
+    <!-- HIDDEN DEBUG PANEL (EASTER EGG) -->
+    <div id="debug-panel" class="debug-panel">
+        <div class="panel-inner">
+            <div class="panel-screen" id="panel-screen">AWAITING MANUAL OVERRIDE</div>
+            <div class="switch-container">
+                <div class="switch-guard"></div>
+                <button id="overdrive-switch" class="red-switch"></button>
+            </div>
+            <p class="panel-label">SYS_OVRD_SW1</p>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
     <section id="home" class="section hero reveal">
         <div class="hero-container">
             <div class="hero-text">
                 <div class="title-wrapper stagger-1">
                     <h1 class="aurora-title">Paras Shelar</h1>
                 </div>
-                <h2 class="hero-sub stagger-2">Electronics & Hardware Engineer</h2>
-                <p class="hero-p stagger-3">Specializing in Digital Logic, HDL (Verilog/VHDL), and Embedded Systems.</p>
+                <h2 class="hero-sub stagger-2 type-effect">Full-Stack IoT Builder</h2>
+                <p class="hero-p stagger-3">I am an electronics engineer who believes the best way to understand technology is to build it. From prototyping embedded systems to developing the mobile and web interfaces that control them, I focus on creating robust, real-world hardware solutions that work seamlessly outside the lab.</p>
                 
                 <div class="hero-buttons stagger-3">
-                    <a href="#projects" class="btn-glow">View Projects</a>
+                    <a href="#projects" class="btn-glow">View Builds</a>
                     <a href="assets/resume/Paras_Shelar_Resume.pdf" download class="download-link">
                         <button class="Btn">
                             <div class="btn-content">
@@ -41,47 +77,93 @@
                     </a>
                 </div>
             </div>
+            
             <div class="hero-visual stagger-2">
-                <i class="fas fa-microchip main-glow-icon"></i>
+                <!-- THE TRIGGER -->
+                <div id="override-trigger" class="pcb-test-point" title="JP1_OVRD">
+                    <span class="silkscreen-label">JP1_OVRD</span>
+                    <div class="gold-pad"></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="section reveal">
-        <h2 class="section-title">About Me</h2>
-        <div class="glass-card stagger-1">
-            <p>I am a final-year Electronics student focusing on digital logic design. I am proficient in <strong>Verilog</strong> and <strong>VHDL</strong>. I use <strong>Python</strong> and <strong>Flutter</strong> to build interfaces that control my hardware designs.</p>
+    <!-- EXPERIENCE & TOOLS SECTION -->
+    <section id="experience" class="section reveal">
+        <h2 class="section-title">Professional Experience</h2>
+        <div class="glass-card ic-card stagger-1">
+            <h3 class="highlight-text">Production Quality Intern (Switchboard Dept)</h3>
+            <h4>Siemens (Kalva Factory, Mumbai) | 6-Month Internship</h4>
+            <p>Focused on production quality and material reconciliation, systematically verifying physical builds and missing parts against Bills of Materials (BOMs). Utilized 3D "JT" digital models to audit mechanical components and ensure precise structural integrity for industrial switchgear.</p>
         </div>
+
+        <h2 class="section-title" style="margin-top: 60px;">Tech Stack</h2>
         <div class="tools-grid">
-            <div class="tool-card stagger-1"><i class="fas fa-code"></i><span>Verilog/VHDL</span></div>
-            <div class="tool-card stagger-2"><i class="fas fa-bolt"></i><span>Embedded</span></div>
+            <div class="tool-card stagger-1"><i class="fas fa-microchip"></i><span>ESP32 / Arduino</span></div>
+            <div class="tool-card stagger-2"><i class="fas fa-code"></i><span>Verilog / VHDL</span></div>
             <div class="tool-card stagger-3"><i class="fas fa-project-diagram"></i><span>KiCad</span></div>
-            <div class="tool-card stagger-1"><i class="fab fa-python"></i><span>Python</span></div>
-            <div class="tool-card stagger-2"><i class="fas fa-mobile-alt"></i><span>Flutter</span></div>
-            <div class="tool-card stagger-3"><i class="fas fa-cube"></i><span>3D Print</span></div>
+            <div class="tool-card stagger-1"><i class="fab fa-python"></i><span>Python / FastAPI</span></div>
+            <div class="tool-card stagger-2"><i class="fas fa-mobile-alt"></i><span>Flutter / Dart</span></div>
+            <div class="tool-card stagger-3"><i class="fas fa-cube"></i><span>3D Printing</span></div>
         </div>
     </section>
 
+    <!-- PROJECTS SECTION -->
     <section id="projects" class="section">
-        <h2 class="section-title reveal">Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card reveal stagger-1">
+        <h2 class="section-title reveal">Hardware & Software Builds</h2>
+        <div class="projects-grid" id="projectsContainer">
+            
+            <div class="project-card ic-card reveal stagger-1">
                 <i class="fas fa-solar-panel card-icon"></i>
-                <h3>Solar Tracker</h3>
-                <p>An ESP32-based dual-axis tracking system maximizing solar energy harvest.</p>
-                <div class="tags"><span>Embedded C++</span> <span>IoT</span></div>
+                <h3>Dual-Axis Solar Tracker</h3>
+                <p>Constructed a custom dual-axis articulating frame. Integrated an ESP32 with sensors to align panels, transmitting live data via Wi-Fi to a connected mobile app.</p>
+                <div class="tags"><span>ESP32</span> <span>IoT</span> <span>Mobile App</span></div>
             </div>
-            <div class="project-card reveal stagger-2">
-                <i class="fas fa-fingerprint card-icon"></i>
-                <h3>Biometric Logging</h3>
-                <p>Fingerprint-based attendance system with secure hardware logging.</p>
-                <div class="tags"><span>Biometrics</span> <span>Arduino</span></div>
+
+            <div class="project-card ic-card reveal stagger-2">
+                <i class="fas fa-clock card-icon"></i>
+                <h3>Smart 4-Watch Winder</h3>
+                <p>Multi-watch winding system driven by precision stepper motors. Engineered with an ESP32 and a 16x32 display, fully controlled via a custom Flutter mobile app.</p>
+                <div class="tags"><span>Hardware</span> <span>Flutter</span> <span>3D Print</span></div>
+            </div>
+
+            <div class="project-card ic-card reveal stagger-3">
+                <i class="fas fa-wave-square card-icon"></i>
+                <h3>2kHz Function Generator</h3>
+                <p>Designed a functional benchtop testing unit featuring a 2kHz function generator paired with a 0-24V variable power supply for prototyping circuits.</p>
+                <div class="tags"><span>Analog</span> <span>Power Reg</span></div>
+            </div>
+
+            <div class="project-card ic-card reveal stagger-1">
+                <i class="fas fa-print card-icon"></i>
+                <h3>Industrial Print Pro</h3>
+                <p>A Flutter-based mobile application engineered to interface directly with Zebra ZT411 and SATO CL4NX industrial printers for professional label generation.</p>
+                <div class="tags"><span>Flutter</span> <span>Dart</span> <span>ZPL</span></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- THOUGHTS SECTION -->
+    <section id="thoughts" class="section">
+        <h2 class="section-title reveal">Thoughts & Updates</h2>
+        <div class="thoughts-grid">
+            <div class="glass-card ic-card reveal stagger-1 left-border">
+                <span class="date-tag"><i class="far fa-calendar-alt"></i> March 2026</span>
+                <h3>Bridging Hardware and Mobile</h3>
+                <p>Finished writing the Dart logic to interface Flutter directly with Zebra industrial printers. It's fascinating how much backend processing can be shifted to the edge device when the communication protocol is optimized.</p>
+            </div>
+            <div class="glass-card ic-card reveal stagger-2 left-border">
+                <span class="date-tag"><i class="far fa-calendar-alt"></i> February 2026</span>
+                <h3>The Importance of Digital Twins</h3>
+                <p>Working with 3D JT models on the production line completely changes how you view physical assembly. If the BOM doesn't match the digital model, the physical build fails. Software reconciliation is just as vital as hardware execution.</p>
             </div>
         </div>
     </section>
 
+    <!-- CONTACT SECTION -->
     <section id="contact" class="section contact-section">
-        <h2 class="section-title reveal">Connect With Me</h2>
+        <h2 class="section-title reveal">System Ping</h2>
         <div class="contact-container reveal stagger-2">
             
             <div class="contact-card">
@@ -90,16 +172,6 @@
                     <div class="content">
                         <h3>Email</h3>
                         <p>parasshelar2006nov@gmail.com</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contact-card">
-                <div class="slide slide1"><div class="icon">📞</div></div>
-                <div class="slide slide2">
-                    <div class="content">
-                        <h3>Phone</h3>
-                        <p>+91 9130583008</p>
                     </div>
                 </div>
             </div>
